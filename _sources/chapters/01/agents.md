@@ -35,7 +35,7 @@ To make an agent we need:
 What we are actually gonna do in this workshop:
 
 To make an agent we need:
-* Define a system prompt
+* ~~Define a system prompt~~
 * Define our tools
 * ~~Insert the tools' description into the system prompt~~
 * ~~Define the syntax of tool calling~~

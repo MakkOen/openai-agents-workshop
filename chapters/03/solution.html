@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Introduction to Agents &#8212; OpenAI Agents Workshop</title>
+    <title>Finished Agent &#8212; OpenAI Agents Workshop</title>
   
   
   
@@ -57,12 +57,10 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/01/intro';</script>
-    <link rel="canonical" href="https://makkoen.github.io/openai-agents-workshop/intro.html/chapters/01/intro.html" />
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/03/solution';</script>
+    <link rel="canonical" href="https://makkoen.github.io/openai-agents-workshop/intro.html/chapters/03/solution.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="LLM fundamentals" href="llms.html" />
-    <link rel="prev" title="Teach your GPT Python!" href="../00/before_workshop.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -125,6 +123,8 @@
       
       
       
+        
+      
       <div class="bd-sidebar-primary bd-sidebar">
         
 
@@ -180,10 +180,10 @@
 
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Introduction</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="current reference internal" href="#">Introduction to Agents</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="llms.html">LLM fundamentals</a></li>
-<li class="toctree-l2"><a class="reference internal" href="agents.html">Agents</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01/intro.html">Introduction to Agents</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../01/llms.html">LLM fundamentals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01/agents.html">Agents</a></li>
 </ul>
 </details></li>
 </ul>
@@ -198,9 +198,9 @@
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Agents</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../03/intro.html">Agents Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
-<li class="toctree-l2"><a class="reference internal" href="../03/tools.html">Tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../03/making_agent.html">Controling the agent workflow</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="intro.html">Agents Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="tools.html">Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="making_agent.html">Controling the agent workflow</a></li>
 </ul>
 </details></li>
 </ul>
@@ -278,7 +278,7 @@
       
       
       
-      <li><a href="hhttps://github.com/MakkOen/openai-agents-workshop/issues/new?title=Issue%20on%20page%20%2Fchapters/01/intro.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="hhttps://github.com/MakkOen/openai-agents-workshop/issues/new?title=Issue%20on%20page%20%2Fchapters/03/solution.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -308,7 +308,7 @@
       
       
       
-      <li><a href="../../_sources/chapters/01/intro.md" target="_blank"
+      <li><a href="../../_sources/chapters/03/solution.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -379,9 +379,7 @@ document.write(`
   </button>
 `);
 </script>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</button>
+
 </div></div>
       
     </div>
@@ -392,20 +390,11 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Introduction to Agents</h1>
+    <h1>Finished Agent</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-a-llm">What’s a LLM</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-agent">What is an agent?</a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -415,23 +404,92 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="introduction-to-agents">
-<h1>Introduction to Agents<a class="headerlink" href="#introduction-to-agents" title="Link to this heading">#</a></h1>
-<p>First a litte bit of theory…</p>
-<section id="what-s-a-llm">
-<h2>What’s a LLM<a class="headerlink" href="#what-s-a-llm" title="Link to this heading">#</a></h2>
-<p>A large language model (LLM) is an advanced type of artificial intelligence designed to understand and generate human-like text. Built using deep learning techniques—particularly transformer architectures—LLMs learn from vast datasets by breaking text down into tokens and creating numerical embeddings that capture semantic meaning. This process enables the model to recognize patterns and context in language, allowing it to produce coherent, contextually relevant responses to a wide range of queries.</p>
-<p>In practical applications, LLMs are used for tasks such as text completion, translation, summarization, and interactive dialogue. Python programmers often leverage these models through various machine learning frameworks, and they can further enhance performance by fine-tuning a pre-trained model on domain-specific data. The careful adjustment of hyperparameters during training and fine-tuning is crucial, as these settings influence how the model learns and performs, ensuring optimal outcomes for different applications.</p>
-<p><img alt="llm" src="../../_images/llm.png" /></p>
-</section>
-<section id="what-is-an-agent">
-<h2>What is an agent?<a class="headerlink" href="#what-is-an-agent" title="Link to this heading">#</a></h2>
-<p>It’s important to note that LLMs process only text as input and output. Agents built on top of these models take this text-centric approach and extend it by incorporating additional layers of reasoning, memory, and decision-making. By interpreting textual prompts, agents can decide on multi-step actions, interact with external APIs, or access databases—all while keeping the language model’s text-based nature at their core.</p>
-<p>These agents bridge the gap between simple text generation and complex task execution. They leverage the rich understanding provided by LLMs and integrate external tools and control mechanisms to perform tasks like scheduling, data retrieval, or even controlling software systems. This integration transforms the straightforward text responses of LLMs into dynamic, interactive systems capable of addressing real-world problems with greater autonomy and precision.</p>
-<p><img alt="agent" src="../../_images/agent_simple.png" /></p>
-<p>And we will built one ourselves..</p>
-</section>
-<div class="toctree-wrapper compound">
+  <section class="tex2jax_ignore mathjax_ignore" id="finished-agent">
+<h1>Finished Agent<a class="headerlink" href="#finished-agent" title="Link to this heading">#</a></h1>
+<p>Here is a simple complete working agent to help you if you get stuck at any point:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Agent</span><span class="p">():</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="n">system_prompt</span><span class="p">:</span> <span class="nb">str</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">model</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">tools</span><span class="p">:</span> <span class="nb">list</span>
+    <span class="p">):</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_system_prompt</span> <span class="o">=</span> <span class="n">system_prompt</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_messages</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">system_prompt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_messages</span><span class="o">.</span><span class="n">append</span><span class="p">([{</span>
+            <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">system_prompt</span>
+        <span class="p">}])</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_model</span> <span class="o">=</span> <span class="n">model</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_tools</span> <span class="o">=</span> <span class="n">tools</span>
+
+    <span class="k">def</span> <span class="nf">_parse_response</span><span class="p">(</span><span class="n">response</span><span class="p">:</span> <span class="n">ChatCompletion</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="c1"># check if we have a tool call</span>
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">finish_reason</span> <span class="o">==</span> <span class="s1">&#39;tool_calls&#39;</span><span class="p">:</span>
+        <span class="n">tool_call</span> <span class="o">=</span>  <span class="n">completion</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">tool_call</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">arguments</span><span class="p">)</span>
+        <span class="c1"># check what function to call</span>
+        <span class="k">if</span> <span class="n">tool_call</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;calculator&#39;</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">calculator</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s1">&#39;target&#39;</span><span class="p">:</span> <span class="s1">&#39;llm&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">tool_call</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="k">elif</span> <span class="n">tool_call</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;get_weather&#39;</span><span class="p">:</span>
+        
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s1">&#39;target&#39;</span><span class="p">:</span> <span class="s1">&#39;llm&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">tool_call</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="s2">&quot;Unsupported function&quot;</span>
+            <span class="p">}</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;target&#39;</span><span class="p">:</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">flush</span><span class="p">():</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_messages</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_system_prompt</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_messages</span><span class="o">.</span><span class="n">append</span><span class="p">([{</span>
+                <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">system_prompt</span>
+            <span class="p">}])</span>
+
+    <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="c1"># add the new user query to our messages</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+            <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">query</span>
+        <span class="p">})</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+            <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+                <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="p">,</span>
+                <span class="n">messages</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_messages</span><span class="p">,</span>
+                <span class="n">tools</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_tools</span><span class="p">,</span>
+                <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                <span class="n">max_completion_token</span><span class="o">=</span><span class="mi">100</span>
+            <span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+            <span class="n">next_step</span> <span class="o">=</span> <span class="n">parse_output</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">next_step</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;user&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">next_step</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+                <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;tool&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;tool_call_id&quot;</span><span class="p">:</span> <span class="n">next_step</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+                <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">next_step</span><span class="p">[</span><span class="s1">&#39;content&#39;</span><span class="p">]</span>
+            <span class="p">})</span>
+        
+        <span class="c1"># The agent kept looping</span>
+        <span class="k">return</span> <span class="s2">&quot;The agent could not come up with an answer to the query&quot;</span>
+</pre></div>
 </div>
 </section>
 
@@ -448,7 +506,7 @@ document.write(`
         },
         kernelOptions: {
             name: "python3",
-            path: "./chapters/01"
+            path: "./chapters/03"
         },
         predefinedOutput: true
     }
@@ -465,46 +523,12 @@ document.write(`
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="../00/before_workshop.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Teach your GPT Python!</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="llms.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">LLM fundamentals</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-s-a-llm">What’s a LLM</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-an-agent">What is an agent?</a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>

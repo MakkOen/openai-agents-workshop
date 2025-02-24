@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Putting it all together &#8212; OpenAI Agents Workshop</title>
+    <title>Controling the agent workflow &#8212; OpenAI Agents Workshop</title>
   
   
   
@@ -200,7 +200,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="intro.html">Agents Introduction</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="tools.html">Tools</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Putting it all together</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Controling the agent workflow</a></li>
 </ul>
 </details></li>
 </ul>
@@ -379,7 +379,9 @@ document.write(`
   </button>
 `);
 </script>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -390,11 +392,20 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Putting it all together</h1>
+    <h1>Controling the agent workflow</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Exercise:</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -404,8 +415,71 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="putting-it-all-together">
-<h1>Putting it all together<a class="headerlink" href="#putting-it-all-together" title="Link to this heading">#</a></h1>
+  <section class="tex2jax_ignore mathjax_ignore" id="controling-the-agent-workflow">
+<h1>Controling the agent workflow<a class="headerlink" href="#controling-the-agent-workflow" title="Link to this heading">#</a></h1>
+<p>So we can provide the LLM with our defined tools, we can call the tools when needed and send the result back to the model. But so far we’ve done that all manually, step by step. This is far from a model with agency to do stuff itself. We need to setup a loop in which we can control the flow of the agent and do all this automatically.</p>
+<p>Lets setup an object <code class="docutils literal notranslate"><span class="pre">Agent</span></code> which will have the method <code class="docutils literal notranslate"><span class="pre">run(query:</span> <span class="pre">str)</span> <span class="pre">-&gt;</span> <span class="pre">str</span></code> which will take the initial user input and output the final answer to the user query.</p>
+<p>We will first give the agent the ability to parse the output from the model, to decide whether to call a tool or pass the final answer back to the user. It could look something like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_parse_response</span><span class="p">(</span><span class="n">response</span><span class="p">:</span> <span class="n">ChatCompletion</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+    <span class="c1"># check if we have a tool call</span>
+    <span class="k">if</span>  <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">finish_reason</span> <span class="o">==</span> <span class="s1">&#39;tool_calls&#39;</span><span class="p">:</span>
+        <span class="n">tool_call</span> <span class="o">=</span>  <span class="n">completion</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">args</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">tool_call</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">arguments</span><span class="p">)</span>
+        <span class="c1"># check what function to call</span>
+        <span class="k">if</span> <span class="n">tool_call</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;calculator&#39;</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">calculator</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+            <span class="k">return</span> <span class="p">{</span>
+                <span class="s1">&#39;target&#39;</span><span class="p">:</span> <span class="s1">&#39;llm&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">tool_call</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="p">}</span>
+</pre></div>
+</div>
+<section id="exercise">
+<h2>Exercise:<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h2>
+<p>Finish the <code class="docutils literal notranslate"><span class="pre">_parse_response()</span></code> function by adding the following:</p>
+<ul class="simple">
+<li><p>Handling the weather tool call</p></li>
+<li><p>Handling any other tool calls</p></li>
+<li><p>Handling the case if the model doesn’t need any new further tool calls</p></li>
+</ul>
+<div class="admonition-tip admonition">
+<p class="admonition-title">Tip:</p>
+<p>If you are struggling with at any point when putting the agent together, you can check out the next section for a solution.</p>
+</div>
+<p>We want the agent to have a “persistent” (at least for the life of the <code class="docutils literal notranslate"><span class="pre">Agent</span></code> object) memory so we can continue a conversation with it through separate <code class="docutils literal notranslate"><span class="pre">run()</span></code> calls.
+We will do it with a property <code class="docutils literal notranslate"><span class="pre">Agent._messages</span></code> which we can fill with the system prompt, if we use any, during initialization. For simplicity, let’s have the system prompt, along side with the model and the tools (the list of descriptions) be <code class="docutils literal notranslate"><span class="pre">__init__</span></code> arguments. Let’s also give the agent a method that flushes the memory so we can start over.</p>
+</section>
+<section id="id1">
+<h2>Exercise:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>
+<p>Complete the <code class="docutils literal notranslate"><span class="pre">__init__</span></code> and <code class="docutils literal notranslate"><span class="pre">flush</span></code> agent methods.</p>
+<p>Now we can go and finish our agent by writing the <code class="docutils literal notranslate"><span class="pre">Agent.run</span></code> method. It should contain a loop that will run until the model decides to give the final answer. But let’s not use just a <code class="docutils literal notranslate"><span class="pre">while</span> <span class="pre">True:</span></code> loop, let’s give the agent a maximum, let’s say 10, amounts of iterations to make sure it does not get stuck. Then the method could start like</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="c1"># add the new user query to our messages</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_messages</span><span class="o">.</span><span class="n">append</span><span class="p">({</span>
+        <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">query</span>
+    <span class="p">})</span>
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
+            <span class="n">model</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_model</span><span class="p">,</span>
+            <span class="n">messages</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_messages</span><span class="p">,</span>
+            <span class="n">tools</span><span class="o">=</span><span class="n">tools</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+        <span class="n">next_step</span> <span class="o">=</span> <span class="n">parse_output</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Finish the agent by completing the <code class="docutils literal notranslate"><span class="pre">run</span></code> method. Add the following:</p>
+<ul class="simple">
+<li><p>Limit the length of the answers with <code class="docutils literal notranslate"><span class="pre">max_completion_tokens</span></code></p></li>
+<li><p>Set a timeout length so we don’t get stuck</p></li>
+<li><p>Based on <code class="docutils literal notranslate"><span class="pre">next_step</span></code> decide if the agent should keep going or we should end.</p></li>
+<li><p>Handle the case when the agent just keeps going and our <code class="docutils literal notranslate"><span class="pre">for</span></code> loop ends.</p></li>
+<li><p>Add some simple <code class="docutils literal notranslate"><span class="pre">print</span></code>s so we can inspect what’s happening while the agent is working.</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/x-thebe-config">
@@ -462,6 +536,22 @@ document.write(`
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise:</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">Exercise:</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>
