@@ -61,7 +61,7 @@
     <link rel="canonical" href="https://makkoen.github.io/openai-agents-workshop/intro.html/chapters/03/making_agent.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Outro" href="../04/outro.html" />
+    <link rel="next" title="Finished Agent" href="solution.html" />
     <link rel="prev" title="Tools" href="tools.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -149,8 +149,14 @@
   
   
   
+    
+    
+      
+    
+    
+    <img src="../../_static/openai.png" class="logo__image only-light" alt="OpenAI Agents Workshop - Home"/>
+    <script>document.write(`<img src="../../_static/openai.png" class="logo__image only-dark" alt="OpenAI Agents Workshop - Home"/>`);</script>
   
-    <p class="title logo__title">OpenAI Agents Workshop</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -170,7 +176,7 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../../intro.html">
-                    OpenAI Agents Workshop
+                    Teach your GPT Python!
                 </a>
             </li>
         </ul>
@@ -201,6 +207,7 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="intro.html">Agents Introduction</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="tools.html">Tools</a></li>
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Controling the agent workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solution.html">Finished Agent</a></li>
 </ul>
 </details></li>
 </ul>
@@ -422,26 +429,31 @@ document.write(`
 <p>We will first give the agent the ability to parse the output from the model, to decide whether to call a tool or pass the final answer back to the user. It could look something like:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_parse_response</span><span class="p">(</span><span class="n">response</span><span class="p">:</span> <span class="n">ChatCompletion</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
     <span class="c1"># check if we have a tool call</span>
-    <span class="k">if</span>  <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">finish_reason</span> <span class="o">==</span> <span class="s1">&#39;tool_calls&#39;</span><span class="p">:</span>
-        <span class="n">tool_call</span> <span class="o">=</span>  <span class="n">completion</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">finish_reason</span> <span class="o">==</span> <span class="s1">&#39;tool_calls&#39;</span><span class="p">:</span>
+        <span class="n">tool_call</span> <span class="o">=</span>  <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">args</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">tool_call</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">arguments</span><span class="p">)</span>
         <span class="c1"># check what function to call</span>
         <span class="k">if</span> <span class="n">tool_call</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;calculator&#39;</span><span class="p">:</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">calculator</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
-            <span class="k">return</span> <span class="p">{</span>
+            <span class="n">next_step</span> <span class="o">=</span> <span class="p">{</span>
                 <span class="s1">&#39;target&#39;</span><span class="p">:</span> <span class="s1">&#39;llm&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">tool_call</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-                <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+                <span class="s1">&#39;message&#39;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">tool_call</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                    <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+                <span class="p">}</span>
             <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">next_step</span>
 </pre></div>
 </div>
 <section id="exercise">
 <h2>Exercise:<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h2>
 <p>Finish the <code class="docutils literal notranslate"><span class="pre">_parse_response()</span></code> function by adding the following:</p>
 <ul class="simple">
-<li><p>Handling the weather tool call</p></li>
-<li><p>Handling any other tool calls</p></li>
-<li><p>Handling the case if the model doesn’t need any new further tool calls</p></li>
+<li><p>Handling the weather tool call.</p></li>
+<li><p>Handling any other tool calls.</p></li>
+<li><p>Make sure you can handle multiple calls at once.</p></li>
+<li><p>Handling the case if the model doesn’t need any new further tool calls.</p></li>
 </ul>
 <div class="admonition-tip admonition">
 <p class="admonition-title">Tip:</p>
@@ -473,11 +485,12 @@ We will do it with a property <code class="docutils literal notranslate"><span c
 </div>
 <p>Finish the agent by completing the <code class="docutils literal notranslate"><span class="pre">run</span></code> method. Add the following:</p>
 <ul class="simple">
-<li><p>Limit the length of the answers with <code class="docutils literal notranslate"><span class="pre">max_completion_tokens</span></code></p></li>
-<li><p>Set a timeout length so we don’t get stuck</p></li>
+<li><p>Limit the length of the answers with <code class="docutils literal notranslate"><span class="pre">max_completion_tokens</span></code>.</p></li>
+<li><p>Set a timeout length so we don’t get stuck.</p></li>
 <li><p>Based on <code class="docutils literal notranslate"><span class="pre">next_step</span></code> decide if the agent should keep going or we should end.</p></li>
 <li><p>Handle the case when the agent just keeps going and our <code class="docutils literal notranslate"><span class="pre">for</span></code> loop ends.</p></li>
 <li><p>Add some simple <code class="docutils literal notranslate"><span class="pre">print</span></code>s so we can inspect what’s happening while the agent is working.</p></li>
+<li><p>Experiment with system prompts to make sure the agent can work in multiple steps to solve your problem.</p></li>
 </ul>
 </section>
 </section>
@@ -522,11 +535,11 @@ We will do it with a property <code class="docutils literal notranslate"><span c
       </div>
     </a>
     <a class="right-next"
-       href="../04/outro.html"
+       href="solution.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Outro</p>
+        <p class="prev-next-title">Finished Agent</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

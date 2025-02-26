@@ -65,11 +65,11 @@ Let's try giving the model our calculator and seeing what happens!
 
 The response was empty?!
 
-It wasn't really. The OpenAI API just catches the tool request server side and formats the response so that we can easily find without inpsecting the string output itself. We can check if the model requires a tool call but looking inspecing `completion.choices[0].finish_reason`, if it's equal to `"tool_calls"` we need to now call the tool ourselves.
+It wasn't really. The OpenAI API just catches the tool request server side and formats the response so that we can easily find without inpsecting the string output itself. We can check if the model requires a tool call but looking inspecing `response.choices[0].finish_reason`, if it's equal to `"tool_calls"` we need to now call the tool ourselves.
 
 But we need to know what tool and which parameters to use for its call:
-* `completion.message.tool_calls[0].function.name` contains the function name
-* `completion.message.tool_calls[0].function.arguments` contains the dictionary of the tool's arguments and their values
+* `response.choices[0].message.tool_calls[0].function.name` contains the function name
+* `response.choices[0].message.tool_calls[0].function.arguments` contains the dictionary of the tool's arguments and their values
 
 With this information we can just call the tool ourselves:
 ```python
@@ -87,15 +87,40 @@ So the message looks like this:
 ```python
 {
     "role": "tool",
-    "tool_call_id": completion.message.tool_calls[0].id,
+    "tool_call_id": response.choices[0].message.tool_calls[0].id,
     "content": tool_call_result
 }
 ```
 
-Let's now try sending the result to the model.
+Let's now try sending the result to the model. But we must not forget to add the response, the tool call request to the conversation so the model knows what the tool call answer was for, we can do that with:
+```python
+messages.append(response.choices[0].message)
+```
+And after we can append our response message.
 ```{admonition} Tip:
 Compare the result to a call without any tools at all.
 ```
+
+## Multiple tool calls
+What happens when the model wants to perform several tool calls at once? Try asking the model `"What is 857*423? What is 934*123"`.
+We can see the usual tool call request `response.choices[0].message.tool_calls[0]` but there's another one `response.choices[0].message.tool_calls[1]`!
+`response.choices[0].message.tool_calls` is actually a list of tool calls that we need to all process!
+
+Once we do that we have to send back a separate response for each tool call request. So our code will have to look something like:
+```python
+for tool_call in response.choices[0].message.tool_calls:
+    #process the tool call
+    tool_call_result=...
+
+    messages.append(
+        {
+            "role": "tool",
+            "tool_call_id": tool_call.id,
+            "content": tool_call_result
+        }
+    )
+```
+
 
 ## Exercise:
 Using the `api.open-meteo.com` to create a `get_weather` tool to get the weather given latitude and longitude. Use

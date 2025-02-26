@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Prompts &#8212; OpenAI Agents Workshop</title>
+    <title>Build a chatbot! &#8212; OpenAI Agents Workshop</title>
   
   
   
@@ -57,12 +57,10 @@
     <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
     <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
-    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/02/prompts';</script>
-    <link rel="canonical" href="https://makkoen.github.io/openai-agents-workshop/intro.html/chapters/02/prompts.html" />
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/02/build_chatbot';</script>
+    <link rel="canonical" href="https://makkoen.github.io/openai-agents-workshop/intro.html/chapters/02/build_chatbot.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="chat.completions.create() parameters" href="call_parameters.html" />
-    <link rel="prev" title="OpenAI API" href="calling_openai_api.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -124,6 +122,8 @@
     <div class="bd-container__inner bd-page-width">
       
       
+      
+        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -194,10 +194,10 @@
 </details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">OpenAI API</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="intro.html">OpenAI API Intro</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="intro.html">OpenAI API Intro</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="calling_openai_api.html">OpenAI API</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Prompts</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prompts.html">Prompts</a></li>
 <li class="toctree-l2"><a class="reference internal" href="call_parameters.html"><code class="docutils literal notranslate"><span class="pre">chat.completions.create()</span></code> parameters</a></li>
 </ul>
 </details></li>
@@ -285,7 +285,7 @@
       
       
       
-      <li><a href="hhttps://github.com/MakkOen/openai-agents-workshop/issues/new?title=Issue%20on%20page%20%2Fchapters/02/prompts.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="hhttps://github.com/MakkOen/openai-agents-workshop/issues/new?title=Issue%20on%20page%20%2Fchapters/02/build_chatbot.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -315,7 +315,7 @@
       
       
       
-      <li><a href="../../_sources/chapters/02/prompts.md" target="_blank"
+      <li><a href="../../_sources/chapters/02/build_chatbot.md" target="_blank"
    class="btn btn-sm btn-download-source-button dropdown-item"
    title="Download source file"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -399,7 +399,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Prompts</h1>
+    <h1>Build a chatbot!</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -409,8 +409,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roles">Roles</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chat-history">Chat history</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-chatbot">Running the chatbot</a></li>
 </ul>
             </nav>
         </div>
@@ -422,73 +421,26 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="prompts">
-<h1>Prompts<a class="headerlink" href="#prompts" title="Link to this heading">#</a></h1>
-<p>In our first OpenAI API call we sent just the user query</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;What&#39;s the capital of Namibia&quot;</span><span class="p">}</span>
+  <section class="tex2jax_ignore mathjax_ignore" id="build-a-chatbot">
+<h1>Build a chatbot!<a class="headerlink" href="#build-a-chatbot" title="Link to this heading">#</a></h1>
+<p>It’s time for our first exercise!</p>
+<p>We now have all the tools needed to actually build our first simple chatbot that will assist tourists visiting Namibia. We have a semi-woking chatbot already in <code class="docutils literal notranslate"><span class="pre">chatbot.py</span></code> using streamlit but it’s currently missing few things:</p>
+<ul>
+<li><p>There is no system prompt specifying the system instructions, make the model only answer questions related to Namibia and answer the following otherwise:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="s2">&quot;I&#39;m sorry user, i&#39;m afraid i can&#39;t do that&quot;</span>
 </pre></div>
 </div>
-<p>but what if we want to add our system instructions in a system prompt along with the user query? To do that we have to use the <code class="docutils literal notranslate"><span class="pre">role</span></code> keyword.</p>
-<p>Generally the <code class="docutils literal notranslate"><span class="pre">messages</span></code> parameter of the client.chat.completions.create() call is a list of messages, where each message is a dictionary with keys <code class="docutils literal notranslate"><span class="pre">role</span></code> and <code class="docutils literal notranslate"><span class="pre">content</span></code>.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">role</span></code>: Specifies the role of the message in the conversation</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">content</span></code>: The actual string content of the message itself.</p></li>
+</li>
+<li><p>Make sure to limit the model’s response to 1000 tokens and set and gracefully handle a timeout of 10 seconds.</p></li>
+<li><p>The chatbot is just one-shot without history, make sure it can follow a conversation.</p></li>
 </ul>
-<section id="roles">
-<h2>Roles<a class="headerlink" href="#roles" title="Link to this heading">#</a></h2>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;system&quot;</span></code>
-Role to give the model a general system instructions, system prompt. Eg:</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Your are a helpful assistant knowledgeable about Namibia, please answer tourist queries in the most helpful manner.&quot;</span><span class="p">}</span>
+<p>Only modify the parts needed, you don’t have to tinker with the with the simple streamlit app.</p>
+<p>If you’re struggling or want to compare your solution, check out <code class="docutils literal notranslate"><span class="pre">chatbot_done.py</span></code></p>
+<section id="running-the-chatbot">
+<h2>Running the chatbot<a class="headerlink" href="#running-the-chatbot" title="Link to this heading">#</a></h2>
+<p>With the workshop environment activated, run the chatbot with simple:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>streamlit<span class="w"> </span>run<span class="w"> </span>chatbot.py
 </pre></div>
-</div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;user&quot;</span></code>
-The user input query to the model. Eg:</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;What&#39;s the capital of Namibia?&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">&quot;assistant&quot;</span></code>
-The role used to denote the model’s responses so it can orient itself in a multi-step conversations. Eg:</p></li>
-</ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;assistant&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;The capital of Namibia is Windhoek.&quot;</span><span class="p">}</span>
-</pre></div>
-</div>
-<p>There is also another role, <code class="docutils literal notranslate"><span class="pre">&quot;tools&quot;</span></code>, which we will learn about and use in later chapters when building our agent.</p>
-</section>
-<section id="chat-history">
-<h2>Chat history<a class="headerlink" href="#chat-history" title="Link to this heading">#</a></h2>
-<p>Currently, in our simple model call, the model has no sense of any other calls we have made and so we can’t really have an ongoing conversation with it.</p>
-<p>To fix this, we need to add the current chat history with every call:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Give me a random number&quot;</span><span class="p">},</span>
-<span class="p">]</span>
-
-<span class="n">response_1</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
-    <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="n">messages</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span>
-    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;assistant&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">response_1</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="p">},</span>
-    <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Now add 10 to that number&quot;</span><span class="p">},</span>
-<span class="p">])</span>
-
-<span class="n">response_2</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-    <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
-    <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
-<span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;First response: </span><span class="si">{</span><span class="n">response_1</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Second response: </span><span class="si">{</span><span class="n">response_2</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-</div>
-<div class="admonition-bonus-question admonition">
-<p class="admonition-title">Bonus question:</p>
-<p>The length of the model is limited (128,000 tokens for gpt-4o-mini-2024-07-18). How can we handle a long conversation extending beyond this limit?</p>
 </div>
 </section>
 </section>
@@ -523,24 +475,6 @@ The role used to denote the model’s responses so it can orient itself in a mul
                 <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="calling_openai_api.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">OpenAI API</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="call_parameters.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><code class="docutils literal notranslate"><span class="pre">chat.completions.create()</span></code> parameters</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
@@ -557,8 +491,7 @@ The role used to denote the model’s responses so it can orient itself in a mul
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#roles">Roles</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chat-history">Chat history</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-the-chatbot">Running the chatbot</a></li>
 </ul>
   </nav></div>
 

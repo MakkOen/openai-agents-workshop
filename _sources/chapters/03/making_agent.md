@@ -8,24 +8,29 @@ We will first give the agent the ability to parse the output from the model, to 
 ```python
 def _parse_response(response: ChatCompletion) -> dict:
     # check if we have a tool call
-    if  response.choices[0].finish_reason == 'tool_calls':
-        tool_call =  completion.choices[0].message.tool_calls[0]
+    if response.choices[0].finish_reason == 'tool_calls':
+        tool_call =  response.choices[0].message.tool_calls[0]
         args = json.loads(tool_call.function.arguments)
         # check what function to call
         if tool_call.function.name == 'calculator':
             result = calculator(**args)
-            return {
+            next_step = {
                 'target': 'llm',
-                'id': tool_call.id,
-                'content': str(result)
+                'message': {
+                    'id': tool_call.id,
+                    'content': str(result)
+                }
             }
+
+        return next_step
 ```
 
 ## Exercise:
 Finish the `_parse_response()` function by adding the following:
-* Handling the weather tool call
-* Handling any other tool calls
-* Handling the case if the model doesn't need any new further tool calls
+* Handling the weather tool call.
+* Handling any other tool calls.
+* Make sure you can handle multiple calls at once.
+* Handling the case if the model doesn't need any new further tool calls.
 
 ```{admonition} Tip:
 If you are struggling with at any point when putting the agent together, you can check out the next section for a solution.
@@ -57,11 +62,12 @@ def run(self, query: str) -> str:
 ```
 
 Finish the agent by completing the `run` method. Add the following:
-* Limit the length of the answers with `max_completion_tokens`
-* Set a timeout length so we don't get stuck
+* Limit the length of the answers with `max_completion_tokens`.
+* Set a timeout length so we don't get stuck.
 * Based on `next_step` decide if the agent should keep going or we should end.
 * Handle the case when the agent just keeps going and our `for` loop ends.
 * Add some simple `print`s so we can inspect what's happening while the agent is working.
+* Experiment with system prompts to make sure the agent can work in multiple steps to solve your problem.
 
 
 

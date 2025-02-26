@@ -149,8 +149,14 @@
   
   
   
+    
+    
+      
+    
+    
+    <img src="../../_static/openai.png" class="logo__image only-light" alt="OpenAI Agents Workshop - Home"/>
+    <script>document.write(`<img src="../../_static/openai.png" class="logo__image only-dark" alt="OpenAI Agents Workshop - Home"/>`);</script>
   
-    <p class="title logo__title">OpenAI Agents Workshop</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -170,7 +176,7 @@
         <ul class="nav bd-sidenav bd-sidenav__home-link">
             <li class="toctree-l1">
                 <a class="reference internal" href="../../intro.html">
-                    OpenAI Agents Workshop
+                    Teach your GPT Python!
                 </a>
             </li>
         </ul>
@@ -201,6 +207,7 @@
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="intro.html">Agents Introduction</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Tools</a></li>
 <li class="toctree-l2"><a class="reference internal" href="making_agent.html">Controling the agent workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="solution.html">Finished Agent</a></li>
 </ul>
 </details></li>
 </ul>
@@ -402,6 +409,7 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-tool-calls">Multiple tool calls</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise:</a></li>
 </ul>
             </nav>
@@ -477,11 +485,11 @@ We do that by creating a list <code class="docutils literal notranslate"><span c
 <p>Let’s try giving the model our calculator and seeing what happens!</p>
 <p>…</p>
 <p>The response was empty?!</p>
-<p>It wasn’t really. The OpenAI API just catches the tool request server side and formats the response so that we can easily find without inpsecting the string output itself. We can check if the model requires a tool call but looking inspecing <code class="docutils literal notranslate"><span class="pre">completion.choices[0].finish_reason</span></code>, if it’s equal to <code class="docutils literal notranslate"><span class="pre">&quot;tool_calls&quot;</span></code> we need to now call the tool ourselves.</p>
+<p>It wasn’t really. The OpenAI API just catches the tool request server side and formats the response so that we can easily find without inpsecting the string output itself. We can check if the model requires a tool call but looking inspecing <code class="docutils literal notranslate"><span class="pre">response.choices[0].finish_reason</span></code>, if it’s equal to <code class="docutils literal notranslate"><span class="pre">&quot;tool_calls&quot;</span></code> we need to now call the tool ourselves.</p>
 <p>But we need to know what tool and which parameters to use for its call:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">completion.message.tool_calls[0].function.name</span></code> contains the function name</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">completion.message.tool_calls[0].function.arguments</span></code> contains the dictionary of the tool’s arguments and their values</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">response.choices[0].message.tool_calls[0].function.name</span></code> contains the function name</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">response.choices[0].message.tool_calls[0].function.arguments</span></code> contains the dictionary of the tool’s arguments and their values</p></li>
 </ul>
 <p>With this information we can just call the tool ourselves:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">expression</span> <span class="o">=</span> <span class="n">completion</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">arguments</span>
@@ -496,16 +504,40 @@ We also need to provide an additional argument with this message: <code class="d
 <p>So the message looks like this:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;tool&quot;</span><span class="p">,</span>
-    <span class="s2">&quot;tool_call_id&quot;</span><span class="p">:</span> <span class="n">completion</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+    <span class="s2">&quot;tool_call_id&quot;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
     <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">tool_call_result</span>
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Let’s now try sending the result to the model.</p>
+<p>Let’s now try sending the result to the model. But we must not forget to add the response, the tool call request to the conversation so the model knows what the tool call answer was for, we can do that with:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And after we can append our response message.</p>
 <div class="admonition-tip admonition">
 <p class="admonition-title">Tip:</p>
 <p>Compare the result to a call without any tools at all.</p>
 </div>
+<section id="multiple-tool-calls">
+<h2>Multiple tool calls<a class="headerlink" href="#multiple-tool-calls" title="Link to this heading">#</a></h2>
+<p>What happens when the model wants to perform several tool calls at once? Try asking the model <code class="docutils literal notranslate"><span class="pre">&quot;What</span> <span class="pre">is</span> <span class="pre">857*423?</span> <span class="pre">What</span> <span class="pre">is</span> <span class="pre">934*123&quot;</span></code>.
+We can see the usual tool call request <code class="docutils literal notranslate"><span class="pre">response.choices[0].message.tool_calls[0]</span></code> but there’s another one <code class="docutils literal notranslate"><span class="pre">response.choices[0].message.tool_calls[1]</span></code>!
+<code class="docutils literal notranslate"><span class="pre">response.choices[0].message.tool_calls</span></code> is actually a list of tool calls that we need to all process!</p>
+<p>Once we do that we have to send back a separate response for each tool call request. So our code will have to look something like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">tool_call</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">:</span>
+    <span class="c1">#process the tool call</span>
+    <span class="n">tool_call_result</span><span class="o">=...</span>
+
+    <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+        <span class="p">{</span>
+            <span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;tool&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;tool_call_id&quot;</span><span class="p">:</span> <span class="n">tool_call</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+            <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="n">tool_call_result</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</section>
 <section id="exercise">
 <h2>Exercise:<a class="headerlink" href="#exercise" title="Link to this heading">#</a></h2>
 <p>Using the <code class="docutils literal notranslate"><span class="pre">api.open-meteo.com</span></code> to create a <code class="docutils literal notranslate"><span class="pre">get_weather</span></code> tool to get the weather given latitude and longitude. Use</p>
@@ -579,6 +611,7 @@ We also need to provide an additional argument with this message: <code class="d
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiple-tool-calls">Multiple tool calls</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exercise">Exercise:</a></li>
 </ul>
   </nav></div>
