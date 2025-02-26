@@ -205,7 +205,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../03/intro.html">Agents Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../03/tools.html">Tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../03/making_agent.html">Controling the agent workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03/making_agent.html">Controlling the agent workflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../03/solution.html">Finished Agent</a></li>
 </ul>
 </details></li>
@@ -412,10 +412,10 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="chat-completions-create-parameters">
 <h1><code class="docutils literal notranslate"><span class="pre">chat.completions.create()</span></code> parameters<a class="headerlink" href="#chat-completions-create-parameters" title="Link to this heading">#</a></h1>
-<p>So far we know how to query our model but how do we make sure the model doesn’t eat all our credits or compute generating a very large response or how do we handle timeouts? We can use the following parameters during the <code class="docutils literal notranslate"><span class="pre">.create()</span></code> call. For a full list of parameters check the API documentation but we will need the following ones:</p>
+<p>So far we know how to query our model, but how do we make sure the model doesn’t eat all our credits or compute generating a very large response, or how do we handle timeouts? We can use the following parameters during the <code class="docutils literal notranslate"><span class="pre">.create()</span></code> call. For a full list of parameters, check the API documentation, but we will need the following ones:</p>
 <ul>
 <li><p><code class="docutils literal notranslate"><span class="pre">max_completion_tokens</span></code></p>
-<p>This parameter lets us setup the maximum number of tokens we allow the model to generate. In case the generation goes over this model, the model is stopped and we will be given its response at that moment, possibly incomplete.</p>
+<p>This parameter lets us set up the maximum number of tokens we allow the model to generate. In case the generation goes over this limit, the model is stopped and we will be given its response at that moment, possibly incomplete.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
     <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
     <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
@@ -427,7 +427,7 @@ document.write(`
 </div>
 </li>
 <li><p><code class="docutils literal notranslate"><span class="pre">timeout</span></code></p>
-<p>We’re using synchronus call to the API and need to be prepared to handle the cases of the API taking forever to respond. We can do that with the <code class="docutils literal notranslate"><span class="pre">timeout</span></code> parameter which makes the call throw an exception after the specified amount of seconds elapsed.</p>
+<p>We’re using a synchronous call to the API and need to be prepared to handle the cases of the API taking forever to respond. We can do that with the <code class="docutils literal notranslate"><span class="pre">timeout</span></code> parameter, which makes the call throw an exception after the specified amount of seconds has elapsed.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
     <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
     <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;What is the capital of Namibia?&quot;</span><span class="p">}],</span>
@@ -435,7 +435,7 @@ document.write(`
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>The particular exception is then <code class="docutils literal notranslate"><span class="pre">openai._exceptions.APITimeoutError</span></code> if we want to catch it.</p>
+<p>The particular exception is <code class="docutils literal notranslate"><span class="pre">openai._exceptions.APITimeoutError</span></code> if we want to catch it.</p>
 </li>
 <li><p>Bonus: <code class="docutils literal notranslate"><span class="pre">temperature</span></code></p>
 <p>Is your model too boring and always giving you always the same answer? Use the <code class="docutils literal notranslate"><span class="pre">temperature</span></code> parameter. With values between 0 and 2 you can control how deterministic the model is, with 0 being (almost) deterministic one.</p>

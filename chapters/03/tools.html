@@ -61,7 +61,7 @@
     <link rel="canonical" href="https://makkoen.github.io/openai-agents-workshop/intro.html/chapters/03/tools.html" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Controling the agent workflow" href="making_agent.html" />
+    <link rel="next" title="Controlling the agent workflow" href="making_agent.html" />
     <link rel="prev" title="Agents Introduction" href="intro.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -205,7 +205,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="intro.html">Agents Introduction</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2 current active"><a class="current reference internal" href="#">Tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="making_agent.html">Controling the agent workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="making_agent.html">Controlling the agent workflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solution.html">Finished Agent</a></li>
 </ul>
 </details></li>
@@ -423,8 +423,8 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="tools">
 <h1>Tools<a class="headerlink" href="#tools" title="Link to this heading">#</a></h1>
-<p>Tools are nothing but a python functions and any python function we’re capable of describing executing can be a tool for our agent.</p>
-<p>Lets star with giving the LLM a simple but powerful tool, a calculator for simple arithmetics:</p>
+<p>Tools are nothing but Python functions, and any Python function we’re capable of describing and executing can be a tool for our agent.</p>
+<p>Let’s start with giving the LLM a simple but powerful tool, a calculator for simple arithmetic:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">calculator</span><span class="p">(</span><span class="n">expression</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Evaluate a mathematical expression containing only basic arithmetic operators.</span>
@@ -439,9 +439,9 @@ document.write(`
     <span class="k">return</span> <span class="nb">eval</span><span class="p">(</span><span class="n">expression</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;__builtins__&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">})</span>
 </pre></div>
 </div>
-<p>Note the verbose docstrings, we will use them later to describe the tool to the model.</p>
-<p>Now we need to describe the tool to our model, so that it knows it’s available, what it does and how to use it.
-We do that by creating a list <code class="docutils literal notranslate"><span class="pre">tools</span></code>, where each element is dictionary describing the tool:</p>
+<p>Note the verbose docstrings; we will use them later to describe the tool to the model.</p>
+<p>Now we need to describe the tool to our model so that it knows it’s available, what it does, and how to use it.
+We do that by creating a list <code class="docutils literal notranslate"><span class="pre">tools</span></code>, where each element is a dictionary describing the tool:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tools</span> <span class="o">=</span> <span class="p">[{</span>
     <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;function&quot;</span><span class="p">,</span>
     <span class="s2">&quot;function&quot;</span><span class="p">:</span> <span class="p">{</span>
@@ -450,7 +450,7 @@ We do that by creating a list <code class="docutils literal notranslate"><span c
         <span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="p">{</span>
             <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;object&quot;</span><span class="p">,</span>
             <span class="s2">&quot;properties&quot;</span><span class="p">:</span> <span class="p">{</span>
-                <span class="s2">&quot;expression&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;number&quot;</span><span class="p">},</span>
+                <span class="s2">&quot;expression&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="s2">&quot;string&quot;</span><span class="p">},</span>
             <span class="p">},</span>
             <span class="s2">&quot;required&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;expression&quot;</span><span class="p">],</span>
             <span class="s2">&quot;additionalProperties&quot;</span><span class="p">:</span> <span class="kc">False</span>
@@ -460,7 +460,7 @@ We do that by creating a list <code class="docutils literal notranslate"><span c
 <span class="p">}]</span>
 </pre></div>
 </div>
-<p>Few things to note here:</p>
+<p>A few things to note here:</p>
 <ul class="simple">
 <li><p>The name and description do not have to be identical to our function’s <code class="docutils literal notranslate"><span class="pre">__name__</span></code> and <code class="docutils literal notranslate"><span class="pre">__doc__</span></code>.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">properties</span></code>: is a dictionary with the function’s arguments</p>
@@ -473,7 +473,7 @@ We do that by creating a list <code class="docutils literal notranslate"><span c
 <li><p><code class="docutils literal notranslate"><span class="pre">additionalProperties</span></code>: If we want to allow the model to add extra, undefined parameters. We don’t.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">strict</span></code>: Makes sure the output of the model follows the defined schema.</p></li>
 </ul>
-<p>We can now finally give the model our tools. We do that using a new parameter, <code class="docutils literal notranslate"><span class="pre">tools</span></code> of the chat.completions.create() call:</p>
+<p>We can now finally give the model our tools. We do that using a new parameter, <code class="docutils literal notranslate"><span class="pre">tools</span></code>, of the <code class="docutils literal notranslate"><span class="pre">chat.completions.create()</span></code> call:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
     <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
     <span class="n">messages</span><span class="o">=</span><span class="n">messages</span><span class="p">,</span>
@@ -481,16 +481,16 @@ We do that by creating a list <code class="docutils literal notranslate"><span c
 <span class="p">)</span>
 </pre></div>
 </div>
-<p>Let’s try giving the model our calculator and seeing what happens!</p>
+<p>Let’s try giving the model our calculator and see what happens!</p>
 <p>…</p>
 <p>The response was empty?!</p>
-<p>It wasn’t really. The OpenAI API just catches the tool request server side and formats the response so that we can easily find without inpsecting the string output itself. We can check if the model requires a tool call but looking inspecing <code class="docutils literal notranslate"><span class="pre">response.choices[0].finish_reason</span></code>, if it’s equal to <code class="docutils literal notranslate"><span class="pre">&quot;tool_calls&quot;</span></code> we need to now call the tool ourselves.</p>
+<p>It wasn’t really. The OpenAI API just catches the tool request server-side and formats the response so that we can easily find it without inspecting the string output itself. We can check if the model requires a tool call by inspecting <code class="docutils literal notranslate"><span class="pre">response.choices[0].finish_reason</span></code>. If it’s equal to <code class="docutils literal notranslate"><span class="pre">&quot;tool_calls&quot;</span></code>, we need to call the tool ourselves.</p>
 <p>But we need to know what tool and which parameters to use for its call:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">response.choices[0].message.tool_calls[0].function.name</span></code> contains the function name</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">response.choices[0].message.tool_calls[0].function.arguments</span></code> contains the dictionary of the tool’s arguments and their values</p></li>
 </ul>
-<p>With this information we can just call the tool ourselves:</p>
+<p>With this information, we can just call the tool ourselves:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">expression</span> <span class="o">=</span> <span class="n">completion</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">arguments</span>
 <span class="n">tool_call_result</span> <span class="o">=</span> <span class="n">calculator</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
 </pre></div>
@@ -508,7 +508,7 @@ We also need to provide an additional argument with this message: <code class="d
 <span class="p">}</span>
 </pre></div>
 </div>
-<p>Let’s now try sending the result to the model. But we must not forget to add the response, the tool call request to the conversation so the model knows what the tool call answer was for, we can do that with:</p>
+<p>Let’s now try sending the result to the model. But we must not forget to add the response, the tool call request to the conversation so the model knows what the tool call answer was for. We can do that with:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -519,13 +519,13 @@ We also need to provide an additional argument with this message: <code class="d
 </div>
 <section id="multiple-tool-calls">
 <h2>Multiple tool calls<a class="headerlink" href="#multiple-tool-calls" title="Link to this heading">#</a></h2>
-<p>What happens when the model wants to perform several tool calls at once? Try asking the model <code class="docutils literal notranslate"><span class="pre">&quot;What</span> <span class="pre">is</span> <span class="pre">857*423?</span> <span class="pre">What</span> <span class="pre">is</span> <span class="pre">934*123&quot;</span></code>.
-We can see the usual tool call request <code class="docutils literal notranslate"><span class="pre">response.choices[0].message.tool_calls[0]</span></code> but there’s another one <code class="docutils literal notranslate"><span class="pre">response.choices[0].message.tool_calls[1]</span></code>!
-<code class="docutils literal notranslate"><span class="pre">response.choices[0].message.tool_calls</span></code> is actually a list of tool calls that we need to all process!</p>
-<p>Once we do that we have to send back a separate response for each tool call request. So our code will have to look something like:</p>
+<p>What happens when the model wants to perform several tool calls at once? Try asking the model <code class="docutils literal notranslate"><span class="pre">&quot;What</span> <span class="pre">is</span> <span class="pre">857*423?</span> <span class="pre">What</span> <span class="pre">is</span> <span class="pre">934*123?&quot;</span></code>.
+We can see the usual tool call request <code class="docutils literal notranslate"><span class="pre">response.choices[0].message.tool_calls[0]</span></code>, but there’s another one <code class="docutils literal notranslate"><span class="pre">response.choices[0].message.tool_calls[1]</span></code>!
+<code class="docutils literal notranslate"><span class="pre">response.choices[0].message.tool_calls</span></code> is actually a list of tool calls that we need to process!</p>
+<p>Once we do that, we have to send back a separate response for each tool call request. So our code will have to look something like:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">tool_call</span> <span class="ow">in</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">:</span>
-    <span class="c1">#process the tool call</span>
-    <span class="n">tool_call_result</span><span class="o">=...</span>
+    <span class="c1"># process the tool call</span>
+    <span class="n">tool_call_result</span> <span class="o">=</span> <span class="o">...</span>
 
     <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
         <span class="p">{</span>
@@ -590,7 +590,7 @@ We can see the usual tool call request <code class="docutils literal notranslate
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">Controling the agent workflow</p>
+        <p class="prev-next-title">Controlling the agent workflow</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

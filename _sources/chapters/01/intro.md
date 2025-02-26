@@ -1,8 +1,8 @@
 # Introduction to Agents
 
-First a litte bit of theory...
+First a little bit of theory...
 
-## What's a LLM
+## What's an LLM
 
 A large language model (LLM) is an advanced type of artificial intelligence designed to understand and generate human-like text. Built using deep learning techniques—particularly transformer architectures—LLMs learn from vast datasets by breaking text down into tokens and creating numerical embeddings that capture semantic meaning. This process enables the model to recognize patterns and context in language, allowing it to produce coherent, contextually relevant responses to a wide range of queries.
 
@@ -18,4 +18,4 @@ These agents bridge the gap between simple text generation and complex task exec
 
 ![agent](../../images/agent_simple.png)
 
-And we will built one ourselves..
+And we will build one ourselves...

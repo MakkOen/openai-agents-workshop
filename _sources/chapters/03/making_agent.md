@@ -1,15 +1,15 @@
-# Controling the agent workflow
+# Controlling the agent workflow
 
-So we can provide the LLM with our defined tools, we can call the tools when needed and send the result back to the model. But so far we've done that all manually, step by step. This is far from a model with agency to do stuff itself. We need to setup a loop in which we can control the flow of the agent and do all this automatically.
+So we can provide the LLM with our defined tools, we can call the tools when needed and send the result back to the model. But so far we've done that all manually, step by step. This is far from a model with agency to do stuff itself. We need to set up a loop in which we can control the flow of the agent and do all this automatically.
 
-Lets setup an object `Agent` which will have the method `run(query: str) -> str` which will take the initial user input and output the final answer to the user query.
+Let's set up an object `Agent` which will have the method `run(query: str) -> str` which will take the initial user input and output the final answer to the user query.
 
 We will first give the agent the ability to parse the output from the model, to decide whether to call a tool or pass the final answer back to the user. It could look something like:
 ```python
 def _parse_response(response: ChatCompletion) -> dict:
     # check if we have a tool call
     if response.choices[0].finish_reason == 'tool_calls':
-        tool_call =  response.choices[0].message.tool_calls[0]
+        tool_call = response.choices[0].message.tool_calls[0]
         args = json.loads(tool_call.function.arguments)
         # check what function to call
         if tool_call.function.name == 'calculator':
@@ -37,7 +37,7 @@ If you are struggling with at any point when putting the agent together, you can
 ```
 
 We want the agent to have a "persistent" (at least for the life of the `Agent` object) memory so we can continue a conversation with it through separate `run()` calls.
-We will do it with a property `Agent._messages` which we can fill with the system prompt, if we use any, during initialization. For simplicity, let's have the system prompt, along side with the model and the tools (the list of descriptions) be `__init__` arguments. Let's also give the agent a method that flushes the memory so we can start over.
+We will do it with a property `Agent._messages` which we can fill with the system prompt, if we use any, during initialization. For simplicity, let's have the system prompt, alongside with the model and the tools (the list of descriptions) be `__init__` arguments. Let's also give the agent a method that flushes the memory so we can start over.
 
 ## Exercise:
 Complete the `__init__` and `flush` agent methods.
@@ -68,12 +68,3 @@ Finish the agent by completing the `run` method. Add the following:
 * Handle the case when the agent just keeps going and our `for` loop ends.
 * Add some simple `print`s so we can inspect what's happening while the agent is working.
 * Experiment with system prompts to make sure the agent can work in multiple steps to solve your problem.
-
-
-
-
-
-
-
-
-

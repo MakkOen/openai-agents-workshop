@@ -1,29 +1,29 @@
 # Prompts
-In our first OpenAI API call we sent just the user query
+In our first OpenAI API call, we sent just the user query:
 ```python
 {"role": "user", "content": "What's the capital of Namibia"}
 ```
-but what if we want to add our system instructions in a system prompt along with the user query? To do that we have to use the `role` keyword.
+But what if we want to add our system instructions in a system prompt along with the user query? To do that, we have to use the `role` keyword.
 
-Generally the `messages` parameter of the client.chat.completions.create() call is a list of messages, where each message is a dictionary with keys `role` and `content`.
-* `role`: Specifies the role of the message in the conversation
+Generally, the `messages` parameter of the `client.chat.completions.create()` call is a list of messages, where each message is a dictionary with keys `role` and `content`.
+* `role`: Specifies the role of the message in the conversation.
 * `content`: The actual string content of the message itself.
 
 ## Roles
 * `"system"`
-Role to give the model a general system instructions, system prompt. Eg:
+Role to give the model general system instructions, system prompt. E.g.:
 ```python
-{"role": "system", "content": "Your are a helpful assistant knowledgeable about Namibia, please answer tourist queries in the most helpful manner."}
+{"role": "system", "content": "You are a helpful assistant knowledgeable about Namibia, please answer tourist queries in the most helpful manner."}
 ```
 
 * `"user"`
-The user input query to the model. Eg:
+The user input query to the model. E.g.:
 ```python
 {"role": "user", "content": "What's the capital of Namibia?"}
 ```
 
 * `"assistant"`
-The role used to denote the model's responses so it can orient itself in a multi-step conversations. Eg:
+The role used to denote the model's responses so it can orient itself in multi-step conversations. E.g.:
 ```python
 {"role": "assistant", "content": "The capital of Namibia is Windhoek."}
 ```
@@ -31,7 +31,7 @@ The role used to denote the model's responses so it can orient itself in a multi
 There is also another role, `"tools"`, which we will learn about and use in later chapters when building our agent.
 
 ## Chat history
-Currently, in our simple model call, the model has no sense of any other calls we have made and so we can't really have an ongoing conversation with it.
+Currently, in our simple model call, the model has no sense of any other calls we have made, and so we can't really have an ongoing conversation with it.
 
 :::{admonition}
 :class: tip

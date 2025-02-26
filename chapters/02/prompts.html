@@ -205,7 +205,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../03/intro.html">Agents Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../03/tools.html">Tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../03/making_agent.html">Controling the agent workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03/making_agent.html">Controlling the agent workflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../03/solution.html">Finished Agent</a></li>
 </ul>
 </details></li>
@@ -423,35 +423,35 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="prompts">
 <h1>Prompts<a class="headerlink" href="#prompts" title="Link to this heading">#</a></h1>
-<p>In our first OpenAI API call we sent just the user query</p>
+<p>In our first OpenAI API call, we sent just the user query:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;What&#39;s the capital of Namibia&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
-<p>but what if we want to add our system instructions in a system prompt along with the user query? To do that we have to use the <code class="docutils literal notranslate"><span class="pre">role</span></code> keyword.</p>
-<p>Generally the <code class="docutils literal notranslate"><span class="pre">messages</span></code> parameter of the client.chat.completions.create() call is a list of messages, where each message is a dictionary with keys <code class="docutils literal notranslate"><span class="pre">role</span></code> and <code class="docutils literal notranslate"><span class="pre">content</span></code>.</p>
+<p>But what if we want to add our system instructions in a system prompt along with the user query? To do that, we have to use the <code class="docutils literal notranslate"><span class="pre">role</span></code> keyword.</p>
+<p>Generally, the <code class="docutils literal notranslate"><span class="pre">messages</span></code> parameter of the <code class="docutils literal notranslate"><span class="pre">client.chat.completions.create()</span></code> call is a list of messages, where each message is a dictionary with keys <code class="docutils literal notranslate"><span class="pre">role</span></code> and <code class="docutils literal notranslate"><span class="pre">content</span></code>.</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">role</span></code>: Specifies the role of the message in the conversation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">role</span></code>: Specifies the role of the message in the conversation.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">content</span></code>: The actual string content of the message itself.</p></li>
 </ul>
 <section id="roles">
 <h2>Roles<a class="headerlink" href="#roles" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;system&quot;</span></code>
-Role to give the model a general system instructions, system prompt. Eg:</p></li>
+Role to give the model general system instructions, system prompt. E.g.:</p></li>
 </ul>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Your are a helpful assistant knowledgeable about Namibia, please answer tourist queries in the most helpful manner.&quot;</span><span class="p">}</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;system&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;You are a helpful assistant knowledgeable about Namibia, please answer tourist queries in the most helpful manner.&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;user&quot;</span></code>
-The user input query to the model. Eg:</p></li>
+The user input query to the model. E.g.:</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;What&#39;s the capital of Namibia?&quot;</span><span class="p">}</span>
 </pre></div>
 </div>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">&quot;assistant&quot;</span></code>
-The role used to denote the model’s responses so it can orient itself in a multi-step conversations. Eg:</p></li>
+The role used to denote the model’s responses so it can orient itself in multi-step conversations. E.g.:</p></li>
 </ul>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;assistant&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;The capital of Namibia is Windhoek.&quot;</span><span class="p">}</span>
 </pre></div>
@@ -460,7 +460,7 @@ The role used to denote the model’s responses so it can orient itself in a mul
 </section>
 <section id="chat-history">
 <h2>Chat history<a class="headerlink" href="#chat-history" title="Link to this heading">#</a></h2>
-<p>Currently, in our simple model call, the model has no sense of any other calls we have made and so we can’t really have an ongoing conversation with it.</p>
+<p>Currently, in our simple model call, the model has no sense of any other calls we have made, and so we can’t really have an ongoing conversation with it.</p>
 <p>To fix this, we need to add the current chat history with every call:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
     <span class="p">{</span><span class="s2">&quot;role&quot;</span><span class="p">:</span> <span class="s2">&quot;user&quot;</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="s2">&quot;Give me a random number&quot;</span><span class="p">},</span>

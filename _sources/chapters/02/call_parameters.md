@@ -1,8 +1,8 @@
 # `chat.completions.create()` parameters
-So far we know how to query our model but how do we make sure the model doesn't eat all our credits or compute generating a very large response or how do we handle timeouts? We can use the following parameters during the `.create()` call. For a full list of parameters check the API documentation but we will need the following ones:
+So far we know how to query our model, but how do we make sure the model doesn't eat all our credits or compute generating a very large response, or how do we handle timeouts? We can use the following parameters during the `.create()` call. For a full list of parameters, check the API documentation, but we will need the following ones:
 * `max_completion_tokens`
 
-    This parameter lets us setup the maximum number of tokens we allow the model to generate. In case the generation goes over this model, the model is stopped and we will be given its response at that moment, possibly incomplete.
+    This parameter lets us set up the maximum number of tokens we allow the model to generate. In case the generation goes over this limit, the model is stopped and we will be given its response at that moment, possibly incomplete.
     ```python
     response = client.chat.completions.create(
         model="gpt-4o-mini",
@@ -15,7 +15,7 @@ So far we know how to query our model but how do we make sure the model doesn't 
 
 * `timeout`
 
-    We're using synchronus call to the API and need to be prepared to handle the cases of the API taking forever to respond. We can do that with the `timeout` parameter which makes the call throw an exception after the specified amount of seconds elapsed.
+    We're using a synchronous call to the API and need to be prepared to handle the cases of the API taking forever to respond. We can do that with the `timeout` parameter, which makes the call throw an exception after the specified amount of seconds has elapsed.
     ```python
     response = client.chat.completions.create(
         model="gpt-4o-mini",
@@ -24,7 +24,7 @@ So far we know how to query our model but how do we make sure the model doesn't 
     )
     ```
 
-    The particular exception is then `openai._exceptions.APITimeoutError` if we want to catch it.
+    The particular exception is `openai._exceptions.APITimeoutError` if we want to catch it.
 
 * Bonus: `temperature`
 

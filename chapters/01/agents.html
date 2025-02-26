@@ -205,7 +205,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../03/intro.html">Agents Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../03/tools.html">Tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../03/making_agent.html">Controling the agent workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03/making_agent.html">Controlling the agent workflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../03/solution.html">Finished Agent</a></li>
 </ul>
 </details></li>
@@ -422,8 +422,8 @@ document.write(`
                   
   <section class="tex2jax_ignore mathjax_ignore" id="agents">
 <h1>Agents<a class="headerlink" href="#agents" title="Link to this heading">#</a></h1>
-<p>Little more about agents:</p>
-<p>Since basic LLM can take nothing but text as input and also output nothing as text back, we have to take care of everything else ourselves.</p>
+<p>A little more about agents:</p>
+<p>Since basic LLMs can take nothing but text as input and also output nothing but text back, we have to take care of everything else ourselves.</p>
 <section id="or-do-we">
 <h2>Or do we?<a class="headerlink" href="#or-do-we" title="Link to this heading">#</a></h2>
 <p>There are several agentic frameworks:</p>
@@ -432,20 +432,20 @@ document.write(`
 <li><p><a class="reference external" href="https://github.com/huggingface/smolagents">SmolAgents</a></p></li>
 <li><p><a class="reference external" href="https://github.com/deepset-ai/haystack">Haystack</a></p></li>
 </ul>
-<p>that allow us to setup an agent within few lines of code. So why would we want to do it oursleves? These frameworks provide a very simple objects that completely abstract away and hide all the complexities of what goes behind the scenes and when these out-of-the-box solutions don’t work properly for your usecase, it is often very difficult to manually dissect them youself and find whats wrong, and it is doubly difficult when you don’t understand what actually goes on in the innards of an agent.</p>
-<p>To use LLM in our user facing product we need to:</p>
+<p>that allow us to set up an agent within a few lines of code. So why would we want to do it ourselves? These frameworks provide very simple objects that completely abstract away and hide all the complexities of what goes on behind the scenes. When these out-of-the-box solutions don’t work properly for your use case, it is often very difficult to manually dissect them yourself and find what’s wrong. It is doubly difficult when you don’t understand what actually goes on in the innards of an agent.</p>
+<p>To use LLM in our user-facing product we need to:</p>
 <ul class="simple">
 <li><p>(optional) Define a system prompt</p></li>
 <li><p>Format the user query with our system prompt into model input</p></li>
-<li><p>Send back the response back to the user</p></li>
+<li><p>Send back the response to the user</p></li>
 </ul>
-<p>To make an agent we need:</p>
+<p>To make an agent we need to:</p>
 <ul class="simple">
 <li><p>Define a system prompt</p></li>
 <li><p>Define our tools</p></li>
 <li><p>Insert the tools’ description into the system prompt</p></li>
 <li><p>Define the syntax of tool calling</p></li>
-<li><p>Parse the models output</p></li>
+<li><p>Parse the model’s output</p></li>
 <li><p>Perform the tool calls ourselves</p>
 <ul>
 <li><p>The model does not call any function itself</p></li>
@@ -455,14 +455,14 @@ document.write(`
 <li><p>Send back the final response to the user</p></li>
 </ul>
 <p><img alt="agent_big" src="../../_images/agent_big.png" /></p>
-<p>What we are actually gonna do in this workshop:</p>
-<p>To make an agent we need:</p>
+<p>What we are actually going to do in this workshop:</p>
+<p>To make an agent we need to:</p>
 <ul class="simple">
 <li><p><strike>Define a system prompt</strike></p></li>
 <li><p>Define our tools</p></li>
 <li><p><strike>Insert the tools’ description into the system prompt</strike></p></li>
 <li><p><strike>Define the syntax of tool calling</strike></p></li>
-<li><p>Parse the models output</p></li>
+<li><p>Parse the model’s output</p></li>
 <li><p>Perform the tool calls ourselves</p>
 <ul>
 <li><p>The model does not call any function itself!</p></li>
@@ -472,8 +472,7 @@ document.write(`
 <li><p>Send back the final response to the user</p></li>
 </ul>
 <p><img alt="agent_actual" src="../../_images/agent_actual.png" /></p>
-<p>We are going to use the OpenAI API for our agent. In the OpenAI API framework, the strikedthrough points are done on the server (LLM) side of the equation and since
-we are using OpenAI’s own models for our demo, OpenAI will do this for ourselves.</p>
+<p>We are going to use the OpenAI API for our agent. In the OpenAI API framework, the strikethrough points are done on the server (LLM) side of the equation and since we are using OpenAI’s own models for our demo, OpenAI will do this for us.</p>
 </section>
 </section>
 

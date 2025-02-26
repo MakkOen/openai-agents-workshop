@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Controling the agent workflow &#8212; OpenAI Agents Workshop</title>
+    <title>Controlling the agent workflow &#8212; OpenAI Agents Workshop</title>
   
   
   
@@ -205,7 +205,7 @@
 <ul class="current nav bd-sidenav">
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="intro.html">Agents Introduction</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="tools.html">Tools</a></li>
-<li class="toctree-l2 current active"><a class="current reference internal" href="#">Controling the agent workflow</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Controlling the agent workflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="solution.html">Finished Agent</a></li>
 </ul>
 </details></li>
@@ -398,7 +398,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Controling the agent workflow</h1>
+    <h1>Controlling the agent workflow</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -421,15 +421,15 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section class="tex2jax_ignore mathjax_ignore" id="controling-the-agent-workflow">
-<h1>Controling the agent workflow<a class="headerlink" href="#controling-the-agent-workflow" title="Link to this heading">#</a></h1>
-<p>So we can provide the LLM with our defined tools, we can call the tools when needed and send the result back to the model. But so far we’ve done that all manually, step by step. This is far from a model with agency to do stuff itself. We need to setup a loop in which we can control the flow of the agent and do all this automatically.</p>
-<p>Lets setup an object <code class="docutils literal notranslate"><span class="pre">Agent</span></code> which will have the method <code class="docutils literal notranslate"><span class="pre">run(query:</span> <span class="pre">str)</span> <span class="pre">-&gt;</span> <span class="pre">str</span></code> which will take the initial user input and output the final answer to the user query.</p>
+  <section class="tex2jax_ignore mathjax_ignore" id="controlling-the-agent-workflow">
+<h1>Controlling the agent workflow<a class="headerlink" href="#controlling-the-agent-workflow" title="Link to this heading">#</a></h1>
+<p>So we can provide the LLM with our defined tools, we can call the tools when needed and send the result back to the model. But so far we’ve done that all manually, step by step. This is far from a model with agency to do stuff itself. We need to set up a loop in which we can control the flow of the agent and do all this automatically.</p>
+<p>Let’s set up an object <code class="docutils literal notranslate"><span class="pre">Agent</span></code> which will have the method <code class="docutils literal notranslate"><span class="pre">run(query:</span> <span class="pre">str)</span> <span class="pre">-&gt;</span> <span class="pre">str</span></code> which will take the initial user input and output the final answer to the user query.</p>
 <p>We will first give the agent the ability to parse the output from the model, to decide whether to call a tool or pass the final answer back to the user. It could look something like:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">_parse_response</span><span class="p">(</span><span class="n">response</span><span class="p">:</span> <span class="n">ChatCompletion</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
     <span class="c1"># check if we have a tool call</span>
     <span class="k">if</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">finish_reason</span> <span class="o">==</span> <span class="s1">&#39;tool_calls&#39;</span><span class="p">:</span>
-        <span class="n">tool_call</span> <span class="o">=</span>  <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">tool_call</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">tool_calls</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">args</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">tool_call</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">arguments</span><span class="p">)</span>
         <span class="c1"># check what function to call</span>
         <span class="k">if</span> <span class="n">tool_call</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;calculator&#39;</span><span class="p">:</span>
@@ -459,7 +459,7 @@ document.write(`
 <p>If you are struggling with at any point when putting the agent together, you can check out the next section for a solution.</p>
 </div>
 <p>We want the agent to have a “persistent” (at least for the life of the <code class="docutils literal notranslate"><span class="pre">Agent</span></code> object) memory so we can continue a conversation with it through separate <code class="docutils literal notranslate"><span class="pre">run()</span></code> calls.
-We will do it with a property <code class="docutils literal notranslate"><span class="pre">Agent._messages</span></code> which we can fill with the system prompt, if we use any, during initialization. For simplicity, let’s have the system prompt, along side with the model and the tools (the list of descriptions) be <code class="docutils literal notranslate"><span class="pre">__init__</span></code> arguments. Let’s also give the agent a method that flushes the memory so we can start over.</p>
+We will do it with a property <code class="docutils literal notranslate"><span class="pre">Agent._messages</span></code> which we can fill with the system prompt, if we use any, during initialization. For simplicity, let’s have the system prompt, alongside with the model and the tools (the list of descriptions) be <code class="docutils literal notranslate"><span class="pre">__init__</span></code> arguments. Let’s also give the agent a method that flushes the memory so we can start over.</p>
 </section>
 <section id="id1">
 <h2>Exercise:<a class="headerlink" href="#id1" title="Link to this heading">#</a></h2>

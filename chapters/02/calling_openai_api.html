@@ -205,7 +205,7 @@
 <ul class="nav bd-sidenav">
 <li class="toctree-l1 has-children"><a class="reference internal" href="../03/intro.html">Agents Introduction</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../03/tools.html">Tools</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../03/making_agent.html">Controling the agent workflow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../03/making_agent.html">Controlling the agent workflow</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../03/solution.html">Finished Agent</a></li>
 </ul>
 </details></li>
@@ -416,8 +416,8 @@ document.write(`
 <p class="admonition-title">Tip:</p>
 <p>Use the playground.ipynb notebook to play around with all the code presented in this workshop.</p>
 </div>
-<p>OpenAI API offers RESTful, streaming, and realtime APIs to interact with the OpenAI platform or any local LLM you set up with it.</p>
-<p>We are gonna focus on the <code class="docutils literal notranslate"><span class="pre">chat/completions/</span></code> endpoint that allows us to send prompts and recieve responses in RESTful way.</p>
+<p>OpenAI API offers RESTful, streaming, and real-time APIs to interact with the OpenAI platform or any local LLM you set up with it.</p>
+<p>We are going to focus on the <code class="docutils literal notranslate"><span class="pre">chat/completions/</span></code> endpoint that allows us to send prompts and receive responses in a RESTful way.</p>
 <p>Our first LLM call:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
     <span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o-mini&quot;</span><span class="p">,</span>
@@ -430,7 +430,7 @@ document.write(`
 </pre></div>
 </div>
 <p>to inspect it.</p>
-<p><code class="docutils literal notranslate"><span class="pre">ChatCompletion</span></code> gives us id of the response, reason for the response generation being stopped and other useful info, but most importantly we get the actual response text as:</p>
+<p><code class="docutils literal notranslate"><span class="pre">ChatCompletion</span></code> gives us the id of the response, the reason for the response generation being stopped, and other useful info, but most importantly we get the actual response text as:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
 </pre></div>
 </div>
