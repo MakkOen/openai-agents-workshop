@@ -35,10 +35,10 @@ To make an agent we need:
 What we are actually gonna do in this workshop:
 
 To make an agent we need:
-* ~~Define a system prompt~~
+* <strike>Define a system prompt</strike>
 * Define our tools
-* ~~Insert the tools' description into the system prompt~~
-* ~~Define the syntax of tool calling~~
+* <strike>Insert the tools' description into the system prompt</strike>
+* <strike>Define the syntax of tool calling</strike>
 * Parse the models output
 * Perform the tool calls ourselves
     * The model does not call any function itself!
