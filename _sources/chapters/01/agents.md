@@ -48,5 +48,5 @@ To make an agent we need:
 ![agent_actual](../../images/agent_actual.png)
 
 We are going to use the OpenAI API for our agent. In the OpenAI API framework, the strikedthrough points are done on the server (LLM) side of the equation and since
-we are using OpenAI's own models for our demo, OpenAI will do this for ourselves. If you're interested in how to do this completely yourself and opensource, see the bonus section "Setting up a local LLM".
+we are using OpenAI's own models for our demo, OpenAI will do this for ourselves.
 

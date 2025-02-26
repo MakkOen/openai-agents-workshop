@@ -8,15 +8,7 @@ A large language model (LLM) is an advanced type of artificial intelligence desi
 
 In practical applications, LLMs are used for tasks such as text completion, translation, summarization, and interactive dialogue. Python programmers often leverage these models through various machine learning frameworks, and they can further enhance performance by fine-tuning a pre-trained model on domain-specific data. The careful adjustment of hyperparameters during training and fine-tuning is crucial, as these settings influence how the model learns and performs, ensuring optimal outcomes for different applications.
 
-<!-- ![llm](../../images/llm.png) -->
-<!-- <img src="../../images/llm.png" alt="llm" width="600"/> -->
-```{figure} ../../images/llm.png
----
-width: 600px
-caption: "llm"
-```
-
-
+![llm](../../images/llm.png)
 
 ## What is an agent?
 
@@ -25,6 +17,5 @@ It’s important to note that LLMs process only text as input and output. Agents
 These agents bridge the gap between simple text generation and complex task execution. They leverage the rich understanding provided by LLMs and integrate external tools and control mechanisms to perform tasks like scheduling, data retrieval, or even controlling software systems. This integration transforms the straightforward text responses of LLMs into dynamic, interactive systems capable of addressing real-world problems with greater autonomy and precision.
 
 ![agent](../../images/agent_simple.png)
-<!-- <img src="../../images/agent_simple.png" alt="agent" width="600"/> -->
 
 And we will built one ourselves..

@@ -28,4 +28,6 @@
     ```bash
     jupyter notebook playground.ipynb
     ```
-4. Alternative: Open the [google colab notebook](https://colab.research.google.com/drive/1XdMLZFUoJC_emOIfhsolJ7VrQUw3-WVa?usp=sharing) and make your own copy (`File -> Save a copy in Drive`)
+
+## Alternative: 
+Open the [google colab notebook](https://colab.research.google.com/drive/1XdMLZFUoJC_emOIfhsolJ7VrQUw3-WVa?usp=sharing) and make your own copy (`File -> Save a copy in Drive`)
