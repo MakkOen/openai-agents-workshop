@@ -1,9 +1,3 @@
-# Teach your GPT Python!
-
-Welcome to the OpenAI Agents Workshop by Ludek Matyska.
-
-[https://tinyurl.com/openai-agents](https://tinyurl.com/openai-agents)
-
 # Before workshop 
 
 1. Clone the openai-agents workshop project: https://github.com/MakkOen/openai-agents-workshop and navigate to `agents-demo` folder which contains the following:
@@ -35,3 +29,4 @@ Welcome to the OpenAI Agents Workshop by Ludek Matyska.
     ```bash
     jupyter notebook playground.ipynb
     ```
+4. Alternative: Open the [google colab notebook](https://colab.research.google.com/drive/1XdMLZFUoJC_emOIfhsolJ7VrQUw3-WVa?usp=sharing) and make your own copy (`File -> Save a copy in Drive`)
