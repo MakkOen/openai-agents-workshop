@@ -2,7 +2,6 @@
 
 1. Clone the openai-agents workshop project: https://github.com/MakkOen/openai-agents-workshop and navigate to `agents-demo` folder which contains the following:
     * jupyter notebook `playground.ipynb` 
-    * `main.py`
     * `requirements.txt` requirements file to set up environment with everything we need
 2. Use your chosen  tool of choice to set up the Python environment:
    - **conda**:
