@@ -33,7 +33,7 @@ Finish the `_parse_response()` function by adding the following:
 * Handling the case if the model doesn't need any new further tool calls.
 
 ```{admonition} Tip:
-If you are struggling with at any point when putting the agent together, you can check out the next section for a solution.
+If you are struggling at any point when putting the agent together, you can check out the next section for a solution.
 ```
 
 We want the agent to have a "persistent" (at least for the life of the `Agent` object) memory so we can continue a conversation with it through separate `run()` calls.

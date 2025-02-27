@@ -456,7 +456,7 @@ document.write(`
 </ul>
 <div class="admonition-tip admonition">
 <p class="admonition-title">Tip:</p>
-<p>If you are struggling with at any point when putting the agent together, you can check out the next section for a solution.</p>
+<p>If you are struggling at any point when putting the agent together, you can check out the next section for a solution.</p>
 </div>
 <p>We want the agent to have a “persistent” (at least for the life of the <code class="docutils literal notranslate"><span class="pre">Agent</span></code> object) memory so we can continue a conversation with it through separate <code class="docutils literal notranslate"><span class="pre">run()</span></code> calls.
 We will do it with a property <code class="docutils literal notranslate"><span class="pre">Agent._messages</span></code> which we can fill with the system prompt, if we use any, during initialization. For simplicity, let’s have the system prompt, alongside with the model and the tools (the list of descriptions) be <code class="docutils literal notranslate"><span class="pre">__init__</span></code> arguments. Let’s also give the agent a method that flushes the memory so we can start over.</p>
