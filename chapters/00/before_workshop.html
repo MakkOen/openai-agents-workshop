@@ -433,14 +433,14 @@ document.write(`
 <ul>
 <li><p><strong>conda</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>agents-demo
-conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>agents-workshop<span class="w"> </span>--file<span class="w"> </span>requirements.txt
+conda<span class="w"> </span>create<span class="w"> </span>--name<span class="w"> </span>agents-workshop<span class="w"> </span><span class="nv">python</span><span class="o">=</span><span class="m">3</span>.9<span class="w"> </span>--file<span class="w"> </span>requirements.txt
 conda<span class="w"> </span>activate<span class="w"> </span>agents-workshop
 </pre></div>
 </div>
 </li>
 <li><p><strong>venv</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>agents-demo
-python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>agents-workshop
+python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>--python<span class="o">=</span>python3.9<span class="w"> </span>agents-workshop
 <span class="nb">source</span><span class="w"> </span>agents-workshop/bin/activate<span class="w">   </span><span class="c1"># On Windows: agents-workshop\Scripts\activate</span>
 pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </pre></div>
@@ -448,7 +448,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </s
 </li>
 <li><p><strong>virtualenv</strong>:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>agents-demo
-virtualenv<span class="w"> </span>agents-workshop
+virtualenv<span class="w"> </span>--python<span class="o">=</span>python3.9<span class="w"> </span>agents-workshop
 <span class="nb">source</span><span class="w"> </span>agents-workshop/bin/activate<span class="w">   </span><span class="c1"># On Windows: agents-workshop\Scripts\activate</span>
 pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
 </pre></div>
@@ -461,7 +461,11 @@ pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </s
 </pre></div>
 </div>
 </li>
+<li><p>Got to <a class="reference external" href="https://pastebin.com/8F3RSsn0">https://pastebin.com/8F3RSsn0</a>, password <code class="docutils literal notranslate"><span class="pre">namibia</span></code>, and copy one of the API keys to the notebook:</p></li>
 </ol>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">OPENAI_API_KEY</span> <span class="o">=</span> <span class="o">...</span>
+</pre></div>
+</div>
 <section id="alternative">
 <h2>Alternative:<a class="headerlink" href="#alternative" title="Link to this heading">#</a></h2>
 <p>Open the <a class="reference external" href="https://colab.research.google.com/drive/1XdMLZFUoJC_emOIfhsolJ7VrQUw3-WVa?usp=sharing">google colab notebook</a> and make your own copy (<code class="docutils literal notranslate"><span class="pre">File</span> <span class="pre">-&gt;</span> <span class="pre">Save</span> <span class="pre">a</span> <span class="pre">copy</span> <span class="pre">in</span> <span class="pre">Drive</span></code>)</p>
