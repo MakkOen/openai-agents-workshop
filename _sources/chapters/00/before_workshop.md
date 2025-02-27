@@ -29,9 +29,9 @@
     jupyter notebook playground.ipynb
     ```
 4. Got to [https://pastebin.com/8F3RSsn0](https://pastebin.com/8F3RSsn0), password `namibia`, and copy one of the API keys to the notebook:
-```python
-OPENAI_API_KEY = ...
-```
+    ```python
+    OPENAI_API_KEY = ...
+    ```
 
 ## Alternative: 
 Open the [google colab notebook](https://colab.research.google.com/drive/1XdMLZFUoJC_emOIfhsolJ7VrQUw3-WVa?usp=sharing) and make your own copy (`File -> Save a copy in Drive`)
